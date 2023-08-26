@@ -6,6 +6,8 @@ interface AccProps {
 }
 
 const FollowAcc = ({ acc }: AccProps) => {
+
+
     return (
         <div className='w-full bg-transparent hover:bg-neutral-600 cursor-pointer rounded-xl'>
             <div className='flex flex-row gap-1 justify-between items-center px-2 py-3'>
@@ -24,6 +26,7 @@ const FollowAcc = ({ acc }: AccProps) => {
                     Follow
                 </Button>
             </div>
+
         </div>
     )
 }

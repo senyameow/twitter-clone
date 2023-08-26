@@ -38,8 +38,8 @@ const NAVIGATION = [
 
 const LeftSidebar = () => {
     return (
-        <section className='fixed w-[275px] flex flex-col items-start justify-between h-full gap-3 text-2xl'>
-            <div className='flex flex-col items-start gap-3'>
+        <section className='w-full sticky top-0 xl:flex flex-col items-stretch h-screen pr-4 '>
+            <div className='flex flex-col items-start h-full space-y-4 mt-4'>
                 <Link href={'/'} className='w-[48px] h-[48px] my-4 hover:bg-white/10 transition duration-200 rounded-full flex items-center justify-center'>
                     <BsTwitter className={'text-white my-4 text-xl'} size={32} />
                 </Link>

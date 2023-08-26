@@ -1,18 +1,42 @@
+'use client'
+import useAuthModal from "@/hooks/useAuthModal";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
+import { useUser } from "@/hooks/useUser";
+import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+
 
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
+
+
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     className,
     children,
     disabled,
-    type = 'button',
+    type,
     ...props
 }, ref) => {
+
+    const { pending } = useFormStatus()
+
+    const { onOpen } = useAuthModal()
+
+    const { user } = useUser()
+
+    const handleClick = () => {
+        if (!user) {
+            console.log(user)
+            onOpen()
+        } else {
+            // tweet or smth
+            console.log(user)
+        }
+    }
     return (
         <button
+            onClick={handleClick}
             type={type}
             className={twMerge(
                 `
@@ -25,7 +49,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             ref={ref}
             {...props}
         >
-            {children}
+            {pending ? <span>submittig...</span> : children}
+
         </button>
     );
 });

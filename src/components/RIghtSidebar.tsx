@@ -61,10 +61,10 @@ const WHOTOFOLLOW = [
 
 const RIghtSidebar = () => {
     return (
-        <section className='w-full px-5 py-4 sticky top-2 h-screen max-w-[275px]'>
-            <div className='flex flex-col gap-4 fixed'>
+        <section className='w-full min-w-[375px] sticky top-2 h-screen mt-2 overflow-scroll no_scroll mx-4'>
+            <div className='flex flex-col gap-24'>
 
-                <div>
+                <div className='fixed top-2 z-[55] backdrop-opacity-90 backdrop-blur bg-gray-950 rounded-xl ml-2 focus:shadow-lg focus-within:shadow-main'>
                     <div className='w-full relative h-full group'>
                         <input type="text" name="" id="search" placeholder='Search Twitter' className='pl-14 pr-4 py-2 rounded-xl outline-none peer focus:border focus:border-main bg-transparent text-white' />
                         <label htmlFor="search" className='peer-focus:text-main text-gray-500'>
@@ -76,7 +76,7 @@ const RIghtSidebar = () => {
 
 
 
-                <div className='bg-neutral-700/80 rounded-lg p-2 flex flex-col items-start justify-start gap-4'>
+                <div className='bg-neutral-700/80 rounded-lg p-2 flex flex-col items-start justify-start gap-4 relative top-14'>
                     <h2 className='text-white font-bold text-2xl'>What's happening</h2>
                     <div className='flex flex-col gap-3'>
                         {TRENDS.map(trend => (
@@ -89,7 +89,7 @@ const RIghtSidebar = () => {
                 </div>
 
 
-                <div className='bg-neutral-700/80 rounded-lg flex flex-col gap-3 items-start justify-start p-2'>
+                <div className='bg-neutral-700/80 rounded-lg flex flex-col gap-3 items-start justify-start p-2 relative'>
                     <h2 className='text-white font-bold'>Who to follow</h2>
                     <div className='flex flex-col items-start justify-start w-full'>
                         {WHOTOFOLLOW.map(acc => (

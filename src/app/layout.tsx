@@ -1,6 +1,12 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import ModalProvider from '@/providers/ModalProvider'
+import SupabaseProvider from './SupabaseProvider'
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes'
+import { Toaster } from 'sonner'
+import UserProvider from '@/providers/UserProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +22,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} no_scroll -mt-[20px]`}>
+        <Theme appearance="dark">
+          <Toaster />
+
+          <SupabaseProvider>
+            <UserProvider>
+              <ModalProvider />
+
+              {children}
+            </UserProvider>
+          </SupabaseProvider>
+        </Theme>
+
+      </body>
     </html>
   )
 }
