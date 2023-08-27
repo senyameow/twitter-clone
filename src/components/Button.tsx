@@ -3,11 +3,10 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { useUser } from "@/hooks/useUser";
-import { experimental_useFormStatus as useFormStatus } from 'react-dom'
-
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 export interface ButtonProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> { onclick?: () => void }
 
 
 
@@ -16,6 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     children,
     disabled,
     type,
+    onclick,
     ...props
 }, ref) => {
 
@@ -30,8 +30,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             console.log(user)
             onOpen()
         } else {
+            console.log('do smth')
             // tweet or smth
-            console.log(user)
+            onclick?.()
+
         }
     }
     return (
@@ -49,7 +51,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             ref={ref}
             {...props}
         >
-            {pending ? <span>submittig...</span> : children}
+            {children}
 
         </button>
     );

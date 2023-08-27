@@ -9,6 +9,9 @@ import { useSessionContext } from "@supabase/auth-helpers-react"
 import getTweets from "@/actions/getTweets"
 import { Tweet } from "@/types"
 
+export const revalidate = 0;
+
+
 export default async function Home() {
 
   const supabase = createServerComponentClient<Database>({

@@ -8,6 +8,9 @@ import { Theme } from '@radix-ui/themes'
 import { Toaster } from 'sonner'
 import UserProvider from '@/providers/UserProvider'
 
+export const revalidate = 0;
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

@@ -1,6 +1,9 @@
 import { Database } from "@/lib/supabase";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+
+export const revalidate = 0;
 
 
 const getTweets = async () => {
@@ -30,7 +33,11 @@ const getTweets = async () => {
 
     console.log(data)
 
+    revalidatePath('/')
+
+
     return data
+
 
 }
 
