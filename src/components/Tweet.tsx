@@ -1,4 +1,4 @@
-'use client'
+'use server'
 import React from 'react'
 import { AiOutlineRetweet } from 'react-icons/ai'
 import { BsDot, BsThreeDots } from 'react-icons/bs'
@@ -13,19 +13,24 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTransition } from 'react'
 import likeTweet from '@/actions/server-actions/likeTweet'
 import Button from './Button'
-
+import LikeButton from './LikeButton'
+import { getLikes } from '@/actions/server-actions/getLikes'
+import { isLikedByUser } from '@/actions/server-actions/isLikedByUser'
 dayjs.extend(relativeTime)
 
-export const revalidate = 0;
 
 
 interface TweetProps {
     tweet: t
 }
 
-const Tweet = ({ tweet }: TweetProps) => {
+const Tweet = async ({ tweet }: TweetProps) => {
 
-    const [isPending, startTransition] = useTransition();
+    const countLikes = await getLikes(tweet.id)
+
+    const isLiked = await isLikedByUser(tweet.id)
+
+
 
     return (
         <div className=' flex flex-row min-w-[300px] border-b border-gray-600 p-3 transition-all duration-200'>
@@ -56,7 +61,7 @@ const Tweet = ({ tweet }: TweetProps) => {
                 <div className='flex flex-row justify-around w-full items-center'>
                     <Button className='hovered flex justify-center items-center w-fit'><FaRegComment size={22} /></Button>
                     <Button className='hovered flex justify-center items-center w-fit'><AiOutlineRetweet size={22} /></Button>
-                    <Button className='hovered flex justify-center items-center w-fit' onclick={() => startTransition(() => likeTweet(String(tweet.id)))}><AiOutlineHeart size={22} /></Button>
+                    <LikeButton tweetId={tweet.id} countLikes={countLikes.count} isLiked={isLiked!} />
                     <Button className='hovered flex justify-center items-center w-fit'><IoMdStats size={22} /></Button>
                     <Button className='hovered flex justify-center items-center w-fit'><GoShare size={22} /></Button>
                 </div>

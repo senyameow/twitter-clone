@@ -48,8 +48,8 @@ const TweetForm = ({ serverAction }: TweetFormProps) => {
                 <div className='flex w-full justify-between items-center'>
                     <div className='flex-1 flex flex-row gap-2'></div>
                     <div className='flex-1 max-w-[30%]'>
-                        <Button type='submit'>
-                            {pending ? 'submitting...' : 'tweet'}
+                        <Button pending_text='submitting..' type='submit' disabled={pending} className={`${pending && 'bg-neutral-400'}`}>
+                            tweet
                         </Button>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ import { useUser } from "@/hooks/useUser";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 export interface ButtonProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement> { onclick?: () => void }
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> { onclick?: () => void, pending_text?: string, pending_styles?: string; }
 
 
 
@@ -16,6 +16,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     disabled,
     type,
     onclick,
+    pending_text,
+    pending_styles,
     ...props
 }, ref) => {
 
@@ -44,14 +46,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
                 `
         bg-main text-white rounded-full w-full px-3 py-2 text-[1.1rem] font-bold hover:bg-blue-400/90
       `,
-                disabled && 'opacity-75 cursor-not-allowed',
+                pending && 'opacity-75 cursor-not-allowed',
                 className
             )}
             disabled={disabled}
             ref={ref}
             {...props}
         >
-            {children}
+            {pending ? pending_text : children}
 
         </button>
     );
