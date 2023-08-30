@@ -2,6 +2,7 @@
 
 
 import AuthModal from '@/components/AuthModal'
+import ReplyModal from '@/components/ReplyModal'
 import React, { useState, useEffect } from 'react'
 
 const ModalProvider = () => {
@@ -20,8 +21,10 @@ const ModalProvider = () => {
     // т.е. загрузились => isMounted = true => выводим нижний ретёрн, иначе ничего не выводим (ждем)
 
     return (
-
-        <AuthModal />
+        <>
+            <AuthModal />
+            <ReplyModal />
+        </>
 
     )
 }

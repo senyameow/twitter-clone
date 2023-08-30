@@ -15,7 +15,6 @@ const LikeButton = ({ tweetId, countLikes, isLiked }: LikeButtonProps) => {
 
 
     const [isPending, startTransition] = useTransition()
-    console.log(countLikes)
 
     return (
         <Button className='hovered flex justify-center items-center w-fit gap-2' onclick={() => startTransition(() => likeTweet(String(tweetId)))}>

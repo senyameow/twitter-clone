@@ -7,7 +7,6 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { IoMdStats } from 'react-icons/io'
 import { GoShare } from 'react-icons/go'
 import '../app/globals.css'
-import { Tweet as t } from '@/types'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTransition } from 'react'
@@ -16,19 +15,30 @@ import Button from './Button'
 import LikeButton from './LikeButton'
 import { getLikes } from '@/actions/server-actions/getLikes'
 import { isLikedByUser } from '@/actions/server-actions/isLikedByUser'
+import { Like, Profile, Tweet as TweetType } from '@/lib/db/schema'
+import useReplyModal from '@/hooks/useReplyModal'
+import ReplyButton from './ReplyButton'
+import ReplyModal from './ReplyModal'
 dayjs.extend(relativeTime)
 
 
 
 interface TweetProps {
-    tweet: t
+    tweet: {
+        tweets: TweetType;
+        profiles: Profile;
+        likes: Like | null;
+    }
 }
 
 const Tweet = async ({ tweet }: TweetProps) => {
 
-    const countLikes = await getLikes(tweet.id)
+    const countLikes = await getLikes(tweet.tweets.id)
 
-    const isLiked = await isLikedByUser(tweet.id)
+    const isLiked = await isLikedByUser(tweet.tweets.id)
+
+
+    console.log(tweet, 'tweet')
 
 
 
@@ -37,31 +47,31 @@ const Tweet = async ({ tweet }: TweetProps) => {
             <div className='flex-[1] h-full flex items-start justify-start p-3'>
                 <div className='w-12 h-12 rounded-full bg-slate-200'></div>
             </div>
-            <div className='flex-[9] flex flex-col justify-between gap-2'>
+            <div className='flex-[9] flex flex-col justify-between gap-2 max-w-[500px]'>
                 <div className='flex flex-row w-full justify-between items-center'>
                     <div className='text-slate-300 flex flex-row items-center gap-1'>
-                        <span className='hover:underline cursor-pointer'>{tweet.profiles.username}</span>
-                        {tweet.profiles.full_name && <span className='hover:underline cursor-pointer'>{tweet.profiles.full_name}</span>}
+                        {tweet.profiles.username && <span className='hover:underline cursor-pointer'>{tweet.profiles.username}</span>}
+                        {tweet.profiles.fullName && <span className='hover:underline cursor-pointer'>{tweet.profiles.fullName}</span>}
                         <div className=''>
                             <BsDot />
                         </div>
                     </div>
                     <div className='flex flex-row gap-2 items-center'>
-                        <span className='text-neutral-400 text-[13px]'>{dayjs(tweet.created_at).fromNow()}</span>
+                        <span className='text-neutral-400 text-[13px]'>{dayjs(tweet.tweets.createdAt).fromNow()}</span>
                         <div className='justify-self-end rounded-full p-2 hover:bg-white/30  transition duration-200 cursor-pointer'>
                             <BsThreeDots />
                         </div>
                     </div>
                 </div>
                 <div className='text-white text-sm'>
-                    {tweet.text}
+                    {tweet.tweets.text}
                 </div>
                 <div className='bg-slate-400 aspect-square w-full h-96 rounded-xl' />
 
                 <div className='flex flex-row justify-around w-full items-center'>
-                    <Button className='hovered flex justify-center items-center w-fit'><FaRegComment size={22} /></Button>
+                    <ReplyButton tweet={tweet} />
                     <Button className='hovered flex justify-center items-center w-fit'><AiOutlineRetweet size={22} /></Button>
-                    <LikeButton tweetId={tweet.id} countLikes={countLikes.count} isLiked={isLiked!} />
+                    <LikeButton tweetId={tweet.tweets.id} countLikes={countLikes} isLiked={isLiked!} />
                     <Button className='hovered flex justify-center items-center w-fit'><IoMdStats size={22} /></Button>
                     <Button className='hovered flex justify-center items-center w-fit'><GoShare size={22} /></Button>
                 </div>

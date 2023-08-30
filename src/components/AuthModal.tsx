@@ -28,6 +28,7 @@ const AuthModal = () => {
 
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
+    const [fullName, setFullName] = useState('')
 
 
     const onChange = (open: boolean) => {
@@ -67,18 +68,20 @@ const AuthModal = () => {
                         return toast.error('this username already exist')
                     }
 
-                    await supabaseClient.auth.signInWithOtp({
+                    const { data: authData, error: AuthError } = await supabaseClient.auth.signInWithOtp({
                         email: email.trim(),
                         options: {
                             data: {
-                                username
+                                username,
+                                full_name: fullName
                             }
                         }
                     })
+                    if (AuthError) return console.log(AuthError.message)
                     console.log(username, email, session)
                     onCloseAuth()
                 }}>
-                    <Toaster className='z-[100]' />
+                    <Toaster className='z-[100] fixed top-4 right-2' />
 
                     <Form.Field className="FormField" name="email">
                         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
@@ -106,6 +109,20 @@ const AuthModal = () => {
                         </div>
                         <Form.Control asChild min={3}>
                             <input className="Input" type="text" required onChange={e => setUsername(e.target.value)} />
+                        </Form.Control>
+                    </Form.Field>
+                    <Form.Field className="FormField" name="fullname">
+                        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                            <Form.Label className="FormLabel">Fullname</Form.Label>
+                            <Form.Message className="FormMessage" match="valueMissing">
+                                Please enter your Fullname
+                            </Form.Message>
+                            <Form.Message className="FormMessage" match="typeMismatch">
+                                Please provide a valid Fullname
+                            </Form.Message>
+                        </div>
+                        <Form.Control asChild min={3}>
+                            <input className="Input" type="text" required onChange={e => setFullName(e.target.value)} />
                         </Form.Control>
                     </Form.Field>
 

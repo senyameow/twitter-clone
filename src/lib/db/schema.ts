@@ -16,7 +16,7 @@ export const profiles = pgTable("profiles", {
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     username: text("username").notNull(),
-    fullName: text("full_name").notNull(),
+    fullName: text("full_name"),
     avatarUrl: text("avatar_url"),
 });
 
@@ -116,7 +116,7 @@ export const likes = pgTable(
     })
 );
 
-export type Like = InferSelectModel<typeof likes>;
+export type Like = InferSelectModel<typeof likes>[];
 
 export const likesRelations = relations(likes, ({ one }) => ({
     profile: one(profiles, {

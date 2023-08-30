@@ -8,13 +8,16 @@ import { useUser } from '@/hooks/useUser'
 import { randomUUID } from 'crypto'
 import { toast } from 'sonner'
 import { revalidatePath } from 'next/cache'
-import { tweets } from '@/lib/db/schema'
+import { replies, tweets } from '@/lib/db/schema'
 import { db } from '@/lib/db'
 
+interface submitReplyProps {
+    tweetId: string;
+    replyText?: string
 
-const submitTweet = async (formData: FormData) => {
+}
 
-    const tweet = String(formData.get('tweet'))
+const submitReply = async ({ tweetId, replyText }: submitReplyProps) => {
 
     const supabaseClient = createServerComponentClient<Database>({ cookies })
 
@@ -25,20 +28,16 @@ const submitTweet = async (formData: FormData) => {
         return
     }
 
+    if (!replyText) return toast.error('pls type some text')
 
-    // проверка твита
-
-    if (!tweet) return console.log('there is no text')
-
-    // const { data: insertData, error: insertError } = await supabase.from('tweets').insert({ text: tweet, user_id: String(user?.id), id: randomUUID() })
-
-    db.insert(tweets).values({ text: tweet, profileId: String(user?.id) })
-        .returning().then(() => console.log('submitted')).catch(() => console.log('something went wrong'))
-
-
+    await db.insert(replies).values({
+        tweetId,
+        text: replyText,
+        userId: String(user?.id)
+    })
 
 
     revalidatePath('/')
 }
 
-export default submitTweet;
+export default submitReply;

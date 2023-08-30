@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migration_generate": "drizzle-kit generate:pg --schema=./src/lib/db/schema.ts",
+    "migration_push": "node -r esbuild-register src/lib/db/migrate.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
