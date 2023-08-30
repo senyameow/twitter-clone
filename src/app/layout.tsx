@@ -7,6 +7,8 @@ import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes'
 import { Toaster } from 'sonner'
 import UserProvider from '@/providers/UserProvider'
+import LeftSidebar from '@/components/LeftSidebar'
+import RIghtSidebar from '@/components/RIghtSidebar'
 
 export const revalidate = 0;
 
@@ -32,8 +34,13 @@ export default function RootLayout({
           <SupabaseProvider>
             <UserProvider>
               <ModalProvider />
-
-              {children}
+              <div className="min-h-screen bg-gray-950 relative w-full h-full flex justify-center items-center no_scroll">
+                <div className="max-w-[80%] h-full flex relative mx-auto">
+                  <LeftSidebar />
+                  {children}
+                  <RIghtSidebar />
+                </div>
+              </div>
             </UserProvider>
           </SupabaseProvider>
         </Theme>

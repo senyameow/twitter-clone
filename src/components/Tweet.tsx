@@ -19,6 +19,7 @@ import { Like, Profile, Tweet as TweetType } from '@/lib/db/schema'
 import useReplyModal from '@/hooks/useReplyModal'
 import ReplyButton from './ReplyButton'
 import ReplyModal from './ReplyModal'
+import TweetMeat from './TweetMeat'
 dayjs.extend(relativeTime)
 
 
@@ -38,6 +39,7 @@ const Tweet = async ({ tweet }: TweetProps) => {
     const isLiked = await isLikedByUser(tweet.tweets.id)
 
 
+
     console.log(tweet, 'tweet')
 
 
@@ -47,8 +49,10 @@ const Tweet = async ({ tweet }: TweetProps) => {
             <div className='flex-[1] h-full flex items-start justify-start p-3'>
                 <div className='w-12 h-12 rounded-full bg-slate-200'></div>
             </div>
+
             <div className='flex-[9] flex flex-col justify-between gap-2 max-w-[500px]'>
-                <div className='flex flex-row w-full justify-between items-center'>
+
+                <div className='flex flex-row justify-between items-center'>
                     <div className='text-slate-300 flex flex-row items-center gap-1'>
                         {tweet.profiles.username && <span className='hover:underline cursor-pointer'>{tweet.profiles.username}</span>}
                         {tweet.profiles.fullName && <span className='hover:underline cursor-pointer'>{tweet.profiles.fullName}</span>}
@@ -63,10 +67,10 @@ const Tweet = async ({ tweet }: TweetProps) => {
                         </div>
                     </div>
                 </div>
-                <div className='text-white text-sm'>
-                    {tweet.tweets.text}
-                </div>
-                <div className='bg-slate-400 aspect-square w-full h-96 rounded-xl' />
+
+                <TweetMeat tweet={tweet} />
+
+
 
                 <div className='flex flex-row justify-around w-full items-center'>
                     <ReplyButton tweet={tweet} />

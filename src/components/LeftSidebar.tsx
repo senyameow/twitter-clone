@@ -12,27 +12,33 @@ import Button from './Button'
 const NAVIGATION = [
     {
         title: 'Home',
-        icon: AiOutlineHome
+        icon: AiOutlineHome,
+        href: '/'
     },
     {
         title: 'Explore',
-        icon: BiHash
+        icon: BiHash,
+        href: '/'
     },
     {
         title: 'Notifications',
-        icon: BsBell
+        icon: BsBell,
+        href: '/'
     },
     {
         title: 'Messages',
-        icon: BiMessageAltDetail
+        icon: BiMessageAltDetail,
+        href: '/'
     },
     {
         title: 'Bookmarks',
-        icon: BsBookmark
+        icon: BsBookmark,
+        href: '/'
     },
     {
         title: 'Profile',
-        icon: BiUser
+        icon: BiUser,
+        href: '/'
     },
 ]
 
@@ -44,7 +50,7 @@ const LeftSidebar = () => {
                     <BsTwitter className={'text-white my-4 text-xl'} size={32} />
                 </Link>
                 {NAVIGATION.map(navItem => (
-                    <Link key={navItem.title} href={`/${navItem.title.toLowerCase()}`} className='rounded-2xl flex transition duration-200 hover:bg-white/10 items-center justify-center p-2 flex-row text-white gap-4'>
+                    <Link key={navItem.title} href={`${navItem.href}`} className='rounded-2xl flex transition duration-200 hover:bg-white/10 items-center justify-center p-2 flex-row text-white gap-4'>
                         <navItem.icon className={'text-white text-xl'} size={28} />
                         <span>{navItem.title}</span>
                     </Link>

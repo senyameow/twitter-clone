@@ -27,12 +27,9 @@ export default async function Home() {
   console.log(properTweets, 'MY TWEETS')
 
   return (
-    <div className="min-h-screen bg-gray-950 relative w-full h-full flex justify-center items-center no_scroll">
-      <div className="max-w-[80%] h-full flex relative mx-auto">
-        <LeftSidebar />
-        <ScrollSession tweets={properTweets} />
-        <RIghtSidebar />
-      </div>
+    <div className="z-[150]">
+      <ScrollSession tweets={properTweets as any} />
     </div>
+
   )
 }

@@ -37,7 +37,7 @@ const submitReply = async ({ tweetId, replyText }: submitReplyProps) => {
     })
 
 
-    revalidatePath('/')
+    revalidatePath('/tweet/[id]')
 }
 
 export default submitReply;
