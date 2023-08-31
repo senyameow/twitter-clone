@@ -26,7 +26,8 @@ const getTweets = async () => {
             .leftJoin(likes, eq(likes.tweetId, tweets.id))
             .innerJoin(profiles, eq(profiles.id, tweets.profileId)) // на самом деле мне нравится очень такая штука!
             .orderBy(desc(tweets.createdAt))
-            .limit(10)
+            .catch(err => console.log(err))
+
 
 
         return res

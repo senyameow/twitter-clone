@@ -9,7 +9,6 @@ import { cookies } from 'next/headers'
 
 export const isLikedByUser = async (tweetId: string) => {
 
-    const supabase = createServerActionClient<Database>({ cookies })
     const supabaseClient = createServerComponentClient<Database>({ cookies })
 
     const { data: { user }, error } = await supabaseClient.auth.getUser()

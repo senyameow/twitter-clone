@@ -21,6 +21,6 @@ const main = async () => {
 
 main()
     .catch(err => {
-        console.log(err)
+        console.log(err, 'migration error')
         process.exit(0)
     })

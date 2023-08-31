@@ -13,11 +13,11 @@ export const revalidate = 0;
 
 export default async function Home() {
 
-  const supabase = createServerComponentClient<Database>({
-    cookies
-  })
+  // const supabase = createServerComponentClient<Database>({
+  //   cookies
+  // })
 
-  const { data: { user }, error } = await supabase.auth.getUser()
+  // const { data: { user }, error } = await supabase.auth.getUser()
 
   const tweets = await getTweets()
 
@@ -27,9 +27,11 @@ export default async function Home() {
   console.log(properTweets, 'MY TWEETS')
 
   return (
-    <div className="z-[150]">
-      <ScrollSession tweets={properTweets as any} />
-    </div>
+    <>
+      {properTweets ? <div className="z-[150]">
+        <ScrollSession tweets={properTweets as any} />
+      </div> : <div></div>}
+    </>
 
   )
 }
